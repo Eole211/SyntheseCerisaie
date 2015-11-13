@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 8 nov. 2015 16:44:19 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="model.Emplacement" table="EMPLACEMENT" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="numEmpl" type="int">
+            <column name="NUMEMPL" />
+        </property>
+        <property name="nbPersMaxEmpl" type="int">
+            <column name="NBPERSMAXEMPL" />
+        </property>
+        <property name="surfaceEmpl" type="float">
+            <column name="SURFACEEMPL" />
+        </property>
+        <many-to-one name="typeEmplacement" class="model.TypeEmplacement" fetch="join">
+            <column name="TYPEEMPLACEMENT" />
+        </many-to-one>
+        <list name="sejours" inverse="false" table="SEJOUR" lazy="true">
+            <key>
+                <column name="SERIALVERSIONUID" />
+            </key>
+            <list-index></list-index>
+            <one-to-many class="model.Sejour" />
+        </list>
+    </class>
+</hibernate-mapping>

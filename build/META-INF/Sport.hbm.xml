@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 8 nov. 2015 16:44:19 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="model.Sport" table="SPORT" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="codeSport" type="int">
+            <column name="CODESPORT" />
+        </property>
+        <property name="libelleSport" type="java.lang.String">
+            <column name="LIBELLESPORT" />
+        </property>
+        <property name="tarifUnite" type="float">
+            <column name="TARIFUNITE" />
+        </property>
+        <property name="uniteTpsSport" type="java.lang.String">
+            <column name="UNITETPSSPORT" />
+        </property>
+        <list name="activites" inverse="false" table="ACTIVITE" lazy="true">
+            <key>
+                <column name="SERIALVERSIONUID" />
+            </key>
+            <list-index></list-index>
+            <one-to-many class="model.Activite" />
+        </list>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws" xmlns:intf="http://ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getClasses">
+    <complexType/>
+   </element>
+   <element name="getClassesResponse">
+    <complexType>
+     <sequence>
+      <element name="getClassesReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <element name="getSingletons">
+    <complexType/>
+   </element>
+   <element name="getSingletonsResponse">
+    <complexType>
+     <sequence>
+      <element name="getSingletonsReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getClassesResponse">
+
+      <wsdl:part element="impl:getClassesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getClassesRequest">
+
+      <wsdl:part element="impl:getClasses" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSingletonsResponse">
+
+      <wsdl:part element="impl:getSingletonsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSingletonsRequest">
+
+      <wsdl:part element="impl:getSingletons" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="RestfullApplication">
+
+      <wsdl:operation name="getClasses">
+
+         <wsdl:input message="impl:getClassesRequest" name="getClassesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getClassesResponse" name="getClassesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSingletons">
+
+         <wsdl:input message="impl:getSingletonsRequest" name="getSingletonsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getSingletonsResponse" name="getSingletonsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="RestfullApplicationSoapBinding" type="impl:RestfullApplication">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getClasses">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getClassesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getClassesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSingletons">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSingletonsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSingletonsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="RestfullApplicationService">
+
+      <wsdl:port binding="impl:RestfullApplicationSoapBinding" name="RestfullApplication">
+
+         <wsdlsoap:address location="http://localhost:11248/ProjetRestTomcat/services/RestfullApplication"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
