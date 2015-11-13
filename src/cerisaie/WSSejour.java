@@ -26,7 +26,7 @@ public class WSSejour {
 	/** Creates a new instance of WsSalutation */
 	public WSSejour() {
 	}
-//test git
+//test gi
 	@GET
 	@Path("/getsejours")
 	@Produces("application/json")
