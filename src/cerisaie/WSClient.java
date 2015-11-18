@@ -3,6 +3,7 @@ package cerisaie;
 import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.*;
@@ -19,7 +20,7 @@ import java.util.*;
 import java.text.*;
 
 @Path("/client")
-public class WSClient {
+public class WSClient {	
 	//@Context
 	//private UriInfo context;
 
@@ -28,8 +29,7 @@ public class WSClient {
 	}
 
 	
-	
-	@GET
+	@POST
 	@Path("/getclientsOld")
 	@Produces("text/plain")
 	// http://localhost:8080/ProjetRestFull/eources/getjson
@@ -62,6 +62,8 @@ public class WSClient {
 		}
 	}
 	
+	
+
 
 	@GET
 	@Path("/getclients")
@@ -83,4 +85,43 @@ public class WSClient {
 		HibUtil.closeEntityManager();
 		return r;		
 	}
+	
+	
+	@POST
+	@Path("updateClient")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces("text/plain")
+	public String updateClient(Client cliParam){
+		EntityManager em=HibUtil.getEntityManager();
+		em.getTransaction().begin();	
+		Client cli= em.find(Client.class,cliParam.getNumCli());
+		if(cliParam.getAdrRueCli()!=null){
+			cli.setAdrRueCli(cliParam.getAdrRueCli());			
+		}
+		if(cliParam.getNomCli()!=null){
+			cli.setNomCli(cliParam.getNomCli());
+		}
+		if(cliParam.getVilleCli()!=null){
+			cli.setVilleCli(cliParam.getVilleCli());
+		}
+		if(cliParam.getAdrRueCli()!=null){
+			cli.setAdrRueCli(cliParam.getAdrRueCli());
+		}
+		if(cliParam.getCpCli()!=null){
+			cli.setCpCli(cliParam.getCpCli());
+		}
+		if(cliParam.getNumPieceCli()!=null){
+			cli.setNumPieceCli(cliParam.getNumPieceCli());
+		}
+		if(cliParam.getPieceCli()!=null){
+			cli.setPieceCli(cliParam.getPieceCli());
+		}
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return "ok";
+	}
+
+	
+
+	
 	}
