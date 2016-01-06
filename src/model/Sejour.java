@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import hibernate.HibUtil;
+
 import java.util.Date;
 import java.util.List;
 
@@ -100,6 +102,16 @@ public class Sejour implements Serializable {
 
 		return activite;
 	}
+	
+	public void removeAllActivites() {
+		EntityManager em=HibUtil.getEntityManager();
+		Query q = em.createNativeQuery("DELETE FROM activite where NumSej= ?1");
+		q.setParameter(1, this.numSej);
+		q.executeUpdate();	
+		
+	}
+	
+	
 
 	public Client getClient() {
 		return this.client;

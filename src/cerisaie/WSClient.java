@@ -1,6 +1,7 @@
 package cerisaie;
 
 import javax.persistence.*;
+import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -67,7 +68,7 @@ public class WSClient {
 
 	@GET
 	@Path("/getclients")
-	@Produces("application/json")
+	@Produces("application/json; charset=utf-8")
 	// http://localhost:8080/ProjetRestFull/eources/getjson
 	public JResponse  getEtudiantToJSONText() throws ParseException {
 		EntityManager em=HibUtil.getEntityManager();
@@ -120,6 +121,26 @@ public class WSClient {
 		HibUtil.closeEntityManager();
 		return "ok";
 	}
+	
+	@GET
+	@Path("/deleteclient")
+	@Produces("text/plain")
+	public String deleteClient(@QueryParam("numCli") int numCli)  throws ParseException {
+		EntityManager em=HibUtil.getEntityManager();
+		em.getTransaction().begin();	
+		Client cli= em.find(Client.class,numCli);
+		List<Sejour> sejs=cli.getSejours();
+		for(Sejour s : sejs){
+			s.removeAllActivites();
+			em.remove(s);
+		}
+		em.remove(cli);
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return "ok";
+	}
+	
+
 
 	
 
