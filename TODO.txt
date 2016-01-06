@@ -1,0 +1,20 @@
+Clients 
+	- Affichage X
+	- Ajout 
+	- Modification ?
+	- Suppression X
+
+Séjours
+	- Affichage X
+	- Ajout
+	- Modification
+	- Suppression X
+	- Facturation
+
+Acticités sportives du séjours
+	- Affichage
+	- facturation
+
+
+
+	
