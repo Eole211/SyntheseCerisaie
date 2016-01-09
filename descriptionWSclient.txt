@@ -1,0 +1,21 @@
+﻿/client/getclients
+	Paramètres : Aucun
+	Retourne tout les clients
+	Sructure : 
+	client[]: adrRueCli, cpCli, nomCli, numCli, numPieceCli, pieceCli, villeCli
+	exemple :
+	{"client":[{"adrRueCli":"3 rue des lilas","cpCli":"69005","nomCli":"Merle","numCli":"1","numPieceCli":"2356786","pieceCli":"CI","villeCli":"Lyon"},{"adrRueCli":"rue des tulipes","cpCli":"69007","nomCli":"Poussin","numCli":"2","numPieceCli":"347835684","pieceCli":"CI","villeCli":"Lyon"},{"adrRueCli":"3 rue des glaieuls","cpCli":"69002","nomCli":"Rossignol","numCli":"3","numPieceCli":"23556645","pieceCli":"CI","villeCli":"Lyon"},{"adrRueCli":"4 rue des pivoines","cpCli":"69007","nomCli":"Piaf","numCli":"5","numPieceCli":"347235684","pieceCli":"PC","villeCli":"Lyon"}]}
+
+/client/deleteclient
+	Paramètres : numCli
+	Retourne ok
+	Supprime le client et les séjours qui le concerne
+
+/client/createclient
+	Paramètre : client en jSON : adrRueCli, cpCli, nomCli, numPieceCli, pieceCli, villeCli
+
+/client/updateclient
+	Paramètre : client en jSON : numCli, adrRueCli, cpCli, nomCli, numPieceCli, pieceCli, villeCli
+	numCli est obligatoire, les autres paramètres sont facultatif
+	
+	

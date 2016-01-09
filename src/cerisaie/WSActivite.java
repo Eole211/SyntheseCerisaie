@@ -3,8 +3,6 @@ package cerisaie;
 import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.hibernate.*;
 
@@ -16,12 +14,12 @@ import java.util.*;
 import java.text.*;
 
 @Path("/sejour")
-public class WSSejour {
+public class WSActivite {
 	//@Context
 	//private UriInfo context;
 
 	/** Creates a new instance of WsSalutation */
-	public WSSejour() {
+	public WSActivite() {
 	}
 //test g
 	
@@ -33,25 +31,16 @@ public class WSSejour {
 		em.getTransaction().begin();	
 		List<Sejour> sejs =  em.createQuery("from Sejour where client.numCli=:numclip").setParameter("numclip", numcli).getResultList();
 		Hibernate.initialize(sejs);
-		List<SejourPrix> sejPs=new LinkedList<>();
-		
-	
-		double prixSej,prixActs;
 		for(Sejour s :sejs){
 			//Suppression des références qui ne nous intéressent pasd
 			em.detach(s);
-			//Calcul des prix
-			prixSej=s.generatePrice();
-			prixActs=Sejour.getActivitesPrix(s.getNumSej(),em).getPrixTotal();
 			s.setActivites(null);
 			s.getEmplacement().setSejours(null);
 			s.getEmplacement().getTypeEmplacement().setEmplacements(null);
 			s.getClient().setSejours(null);
-			sejPs.add(new SejourPrix(s,prixSej,prixActs));
 		}		
-		GenericEntity<List<SejourPrix>> entity = new GenericEntity<List<SejourPrix>>(sejPs){};
+		GenericEntity<List<Sejour>> entity = new GenericEntity<List<Sejour>>(sejs){};
 		JResponse r= JResponse.ok(entity).build();
-	
 		em.getTransaction().commit();
 		HibUtil.closeEntityManager();
 		return r;		
@@ -98,31 +87,45 @@ public class WSSejour {
 	}
 	
 
-	@POST
-	@Path("createsejour")
-	@Consumes({MediaType.APPLICATION_JSON})
-	@Produces("text/plain")
-	public String createSejour(Sejour sejParam){
-		EntityManager em=HibUtil.getEntityManager();
-		em.getTransaction().begin();	
-		em.persist(sejParam);
-		em.getTransaction().commit();
-		HibUtil.closeEntityManager();
-		return "ok";		
-	}
-	
-	
-	
 	@GET
 	@Path("/getactivites")
 	@Produces("application/json")
 	public JResponse getactivite(@QueryParam("numsej") int numSej)  throws ParseException {
-			ActivitePrix ap = Sejour.getActivitesPrix(numSej);
-			GenericEntity<ActivitePrix> entity = new GenericEntity<ActivitePrix>(ap){};	
-			JResponse r= JResponse.ok(entity).build();
-			return r;
+		EntityManager em=HibUtil.getEntityManager();
+		em.getTransaction().begin();	
+		List<Activite> acts =  em.createQuery("from Activite where sejour.numSej=:numSej").setParameter("numSej", numSej).getResultList();
+		Hibernate.initialize(acts);	
+		for(Activite a : acts){
+			em.detach(a);
+			a.setSejour(null);
+			a.getSport().setActivites(null);
 		}
+		GenericEntity<List<Activite>> entity = new GenericEntity<List<Activite>>(acts){};	
+		JResponse r= JResponse.ok(entity).build();
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return r;		
+	}
 	
+	@GET
+	@Path("/getprixactivites")
+	@Produces("application/json")
+	public JResponse getPrixActivite(@QueryParam("numsej") int numSej)  throws ParseException {
+		EntityManager em=HibUtil.getEntityManager();
+		em.getTransaction().begin();	
+		List<Activite> acts =  em.createQuery("from Activite where sejour.numSej=:numSej").setParameter("numSej", numSej).getResultList();
+		Hibernate.initialize(acts);	
+		List<Double> prix = new LinkedList<>();
+		for(Activite a : acts){
+			prix.add(new Double(a.getSport().getTarifUnite()*a.getNbloc()));
+		}
+		GenericEntity<List<Double>> entity = new GenericEntity<List<Double>>(prix){};	
+		JResponse r= JResponse.ok(entity).build();
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return r;		
+	}
 	
 
+	
 	}

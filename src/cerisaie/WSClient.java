@@ -30,6 +30,9 @@ public class WSClient {
 	}
 
 	
+	
+	
+	
 	@POST
 	@Path("/getclientsOld")
 	@Produces("text/plain")
@@ -88,8 +91,23 @@ public class WSClient {
 	}
 	
 	
+	
 	@POST
-	@Path("updateClient")
+	@Path("createclient")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces("text/plain")
+	public String createClient(Client cliParam){
+		EntityManager em=HibUtil.getEntityManager();
+		em.getTransaction().begin();	
+		em.persist(cliParam);
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return "ok";		
+	}
+	
+	
+	@POST
+	@Path("updateclient")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces("text/plain")
 	public String updateClient(Client cliParam){

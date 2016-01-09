@@ -1,19 +1,19 @@
 Clients 
 	- Affichage X
-	- Ajout 
-	- Modification ?
+	- Ajout X à tester
+	- Modification X à tester
 	- Suppression X
 
 Séjours
 	- Affichage X
-	- Ajout
+	- Ajout 
 	- Modification
 	- Suppression X
-	- Facturation
+	- Facturation X
 
 Acticités sportives du séjours
-	- Affichage
-	- facturation
+	- Affichage X
+	- facturation X
 
 
 

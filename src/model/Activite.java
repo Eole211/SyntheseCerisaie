@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import hibernate.HibUtil;
+
 
 /**
  * The persistent class for the activite database table.
@@ -24,12 +26,13 @@ public class Activite implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="NumSej")
 	private Sejour sejour;
+	
 
 	//bi-directional many-to-one association to Sport
 	@ManyToOne
 	@JoinColumn(name="CodeSport")
 	private Sport sport;
-
+	
 	public Activite() {
 	}
 
@@ -48,6 +51,7 @@ public class Activite implements Serializable {
 	public void setNbloc(int nbloc) {
 		this.nbloc = nbloc;
 	}
+
 
 	public Sejour getSejour() {
 		return this.sejour;

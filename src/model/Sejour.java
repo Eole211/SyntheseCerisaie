@@ -2,11 +2,20 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.Hibernate;
 
 import hibernate.HibUtil;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -111,8 +120,58 @@ public class Sejour implements Serializable {
 		
 	}
 	
+	public double generatePrice(){
+		Sejour s= this;
+		int dayBeg, dayEnd;
+		Calendar cal= Calendar.getInstance();
+		cal.setTime(s.getDateFinSej());
+		dayEnd=cal.get(Calendar.DAY_OF_YEAR);
+		cal.setTime(s.getDatedebSej());
+		dayBeg=cal.get(Calendar.DAY_OF_YEAR);
+		if(dayEnd<dayBeg){
+			dayEnd+=cal.getActualMaximum(Calendar.DAY_OF_YEAR);
+		}
+		return (dayEnd-dayBeg)*s.getEmplacement().getTypeEmplacement().getTariftypepl();
+	}
 	
 
+	public static ActivitePrix getActivitesPrix(int numSej){
+		EntityManager em=HibUtil.getEntityManager();
+		em.getTransaction().begin();	
+		ActivitePrix ap=getActivitesPrix(numSej,em);
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return ap;
+		
+	}
+	public static ActivitePrix getActivitesPrix(int numSej, EntityManager em){
+		List<Activite> acts =  em.createQuery("from Activite where sejour.numSej=:numSej").setParameter("numSej", numSej).getResultList();
+		Hibernate.initialize(acts);	
+		List<Object> json= new LinkedList<>();
+		double[] prix =new double[acts.size()];
+		int i=0;
+		for(Activite a : acts){
+			prix[i]=a.getSport().getTarifUnite()*a.getNbloc();
+			em.detach(a);
+			a.setSejour(null);
+			a.getSport().setActivites(null);
+			i++;
+		}
+		ActivitePrix ap=new ActivitePrix(acts,prix);
+		return ap;
+	}
+	
+	
+	
+	public double generateActivitiesPrice(){
+		double prix=0;
+		for(Activite act: this.activites)
+		{
+			prix+=act.getNbloc()*act.getSport().getTarifUnite();
+		}
+		return prix;
+	}
+	
 	public Client getClient() {
 		return this.client;
 	}

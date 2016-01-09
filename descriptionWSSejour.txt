@@ -1,0 +1,31 @@
+﻿/sejour/getsejour : 
+	Paramètre : numcli en GET
+	Retourne les séjours du clients et leurs prix
+	structure : 
+		sejourPrix[]{ sejour : {caractéristiques du séjour}, prixSejour, prixActivites, prixTotal }
+	exemple :
+		{"sejourPrix":[{"sejour":{"client":{"adrRueCli":"rue des tulipes","cpCli":"69007","nomCli":"Poussin","numCli":"2","numPieceCli":"347835684","pieceCli":"CI","villeCli":"Lyon"},"dateFinSej":"2012-07-13T00:00:00+02:00","datedebSej":"2012-07-02T00:00:00+02:00","emplacement":{"nbPersMaxEmpl":"5","numEmpl":"3","surfaceEmpl":"6.0","typeEmplacement":{"codeTypeE":"1","libtypepl":"TENTE","tariftypepl":"19.0"}},"nbPersonnes":"4","numSej":"2"},"prixSejour":"209.0","prixActivites":"15.0","prixTotal":"0.0"},{"sejour":{"client":{"adrRueCli":"rue des tulipes","cpCli":"69007","nomCli":"Poussin","numCli":"2","numPieceCli":"347835684","pieceCli":"CI","villeCli":"Lyon"},"dateFinSej":"2012-07-25T00:00:00+02:00","datedebSej":"2012-07-15T00:00:00+02:00","emplacement":{"nbPersMaxEmpl":"25","numEmpl":"13","surfaceEmpl":"20.0","typeEmplacement":{"codeTypeE":"4","libtypepl":"BUNGALOW","tariftypepl":"28.0"}},"nbPersonnes":"14","numSej":"13"},"prixSejour":"280.0","prixActivites":"9.0","prixTotal":"0.0"}]}
+
+/sejour/getsejours : 
+	Paramètre : Aucun
+	Retourne tout les séjours
+	structure : 
+		sejour:[]{client : {caractéristiques du client}, dateFinSej, datedebSej, emplacement:{caractéristiques emplacement},nbPersonnes,numSej} 
+	exemple :
+		{"sejour":[{"client":{"adrRueCli":"rue des tulipes","cpCli":"69007","nomCli":"Poussin","numCli":"2","numPieceCli":"347835684","pieceCli":"CI","villeCli":"Lyon"},"dateFinSej":"2012-07-13T00:00:00+02:00","datedebSej":"2012-07-02T00:00:00+02:00","emplacement":{"nbPersMaxEmpl":"5","numEmpl":"3","surfaceEmpl":"6.0","typeEmplacement":{"codeTypeE":"1","libtypepl":"TENTE","tariftypepl":"19.0"}},"nbPersonnes":"4","numSej":"2"},{"client":{"adrRueCli":"4 rue des pivoines","cpCli":"69007","nomCli":"Piaf","numCli":"5","numPieceCli":"347235684","pieceCli":"PC","villeCli":"Lyon"},"dateFinSej":"2012-07-25T00:00:00+02:00","datedebSej":"2012-07-08T00:00:00+02:00","emplacement":{"nbPersMaxEmpl":"12","numEmpl":"5","surfaceEmpl":"8.0","typeEmplacement":{"codeTypeE":"2","libtypepl":"CARAVANE","tariftypepl":"29.0"}},"nbPersonnes":"8","numSej":"5"}]}
+	
+/sejour/getactivites :
+	Paramètre : numSej
+	Retourne toutes les activités du séjour
+	structure :
+		activites[]{id:{codeSport, dateJour, numSej}, nbloc, sport :{caractéristiques du sport}}
+	exemple : 	{"activites":[{"id":{"codeSport":"2","dateJour":"2012-07-10T00:00:00+02:00","numSej":"7"},"nbloc":"1","sport":{"codeSport":"2","libelleSport":"VTT","tarifUnite":"15.0","uniteTpsSport":"1/2 journÃƒ"}},{"id":{"codeSport":"2","dateJour":"2012-07-15T00:00:00+02:00","numSej":"7"},"nbloc":"2","sport":{"codeSport":"2","libelleSport":"VTT","tarifUnite":"15.0","uniteTpsSport":"1/2 journÃƒ"}}],"prix":["15.0","30.0"]}
+	
+
+/client/deletesejour
+	Paramètres : numsej
+	Retourne ok
+	Supprime le séjour 
+	
+
+	 
