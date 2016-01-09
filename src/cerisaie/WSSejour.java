@@ -102,10 +102,10 @@ public class WSSejour {
 	@Path("createsejour")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces("text/plain")
-	public String createSejour(Sejour sejParam){
+	public String createSejour(SejourJson sejParam){
 		EntityManager em=HibUtil.getEntityManager();
 		em.getTransaction().begin();	
-		em.persist(sejParam);
+		em.persist(sejParam.toSejour(em));
 		em.getTransaction().commit();
 		HibUtil.closeEntityManager();
 		return "ok";		

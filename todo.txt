@@ -6,7 +6,7 @@ Clients
 
 Séjours
 	- Affichage X
-	- Ajout 
+	- Ajout X à tester
 	- Modification
 	- Suppression X
 	- Facturation X
