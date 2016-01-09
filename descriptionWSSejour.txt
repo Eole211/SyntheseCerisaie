@@ -21,8 +21,24 @@
 		activites[]{id:{codeSport, dateJour, numSej}, nbloc, sport :{caractéristiques du sport}}
 	exemple : 	{"activites":[{"id":{"codeSport":"2","dateJour":"2012-07-10T00:00:00+02:00","numSej":"7"},"nbloc":"1","sport":{"codeSport":"2","libelleSport":"VTT","tarifUnite":"15.0","uniteTpsSport":"1/2 journÃƒ"}},{"id":{"codeSport":"2","dateJour":"2012-07-15T00:00:00+02:00","numSej":"7"},"nbloc":"2","sport":{"codeSport":"2","libelleSport":"VTT","tarifUnite":"15.0","uniteTpsSport":"1/2 journÃƒ"}}],"prix":["15.0","30.0"]}
 	
+/sejour/createsejour
+	Paramètres : séjour json :
+		@XmlElement
+		Date datedebSej;
 
-/client/deletesejour
+		@XmlElement
+		private Date dateFinSej;
+
+		@XmlElement
+		private int nbPersonnes;
+
+		@XmlElement //clé étrangère
+		private int numClient;
+
+		@XmlElement //clé étrangère
+		private int numEmplacement;
+
+/sejour/deletesejour
 	Paramètres : numsej
 	Retourne ok
 	Supprime le séjour 

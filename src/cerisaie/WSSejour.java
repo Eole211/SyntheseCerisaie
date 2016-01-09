@@ -99,7 +99,7 @@ public class WSSejour {
 	
 
 	@POST
-	@Path("createsejour")
+	@Path("/createsejour")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces("text/plain")
 	public String createSejour(SejourJson sejParam){
