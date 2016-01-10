@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC
-		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">epul</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cerisaie</property>
-        <property name="hibernate.connection.username">userepul</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
-        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
-    	
-    	      <!-- mappings for annotated classes -->
-    	<mapping class="model.Activite"/>
-    	 <mapping class="model.Sejour"/>
-        <mapping class="model.Client"/>
-        <mapping class="model.Emplacement"/>
-      
-        <mapping class="model.Activite"/>
-        <mapping class="model.Sport"/>
-        <mapping class="model.TypeEmplacement"/>
-        <mapping class="model.ActivitePK"/>
-    </session-factory>
+ <session-factory name="">
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.password">epul</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cerisaie</property>
+  <property name="hibernate.connection.username">userepul</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+  <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+  <!-- mappings for annotated classes -->
+  <mapping class="model.Activite"/>
+  <mapping class="model.Sejour"/>
+  <mapping class="model.Client"/>
+  <mapping class="model.Emplacement"/>
+  <mapping class="model.Sport"/>
+  <mapping class="model.TypeEmplacement"/>
+  <mapping class="model.ActivitePK"/>
+ </session-factory>
 </hibernate-configuration>

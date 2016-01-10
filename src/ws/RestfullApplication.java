@@ -16,7 +16,6 @@ public class RestfullApplication extends Application {
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 	
 	public RestfullApplication() {
-		singletons.add(new WSRessource());
 		singletons.add(new WSClient());
 		singletons.add(new WSSejour());
 	}

@@ -24,7 +24,6 @@ public class WSActivite {
 //test g
 	
 
-
 	@GET
 	@Path("/getactivites")
 	@Produces("application/json")
