@@ -29,7 +29,7 @@ public class SejourJson {
 	private int nbPersonnes;
 
 	@XmlElement
-	private int numClient;
+	private int numCli;
 
 	@XmlElement
 	private int numEmplacement;
@@ -41,7 +41,7 @@ public class SejourJson {
 	
 	public Sejour toSejour(EntityManager em){
 		Sejour sej= new Sejour();
-		sej.setClient(em.find(Client.class,numClient));
+		sej.setClient(em.find(Client.class,numCli));
 		sej.setDatedebSej(datedebSej);
 		sej.setDateFinSej(dateFinSej);
 		sej.setNbPersonnes(nbPersonnes);
