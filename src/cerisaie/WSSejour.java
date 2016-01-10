@@ -34,8 +34,6 @@ public class WSSejour {
 		List<Sejour> sejs =  em.createQuery("from Sejour where client.numCli=:numclip").setParameter("numclip", numcli).getResultList();
 		Hibernate.initialize(sejs);
 		List<SejourPrix> sejPs=new LinkedList<>();
-		
-	
 		double prixSej,prixActs;
 		for(Sejour s :sejs){
 			//Suppression des références qui ne nous intéressent pasd
@@ -57,7 +55,50 @@ public class WSSejour {
 		return r;		
 	}
 	
+	
+	@GET
+	@Path("/getsejourfromid")
+	@Produces("application/json")
+	public JResponse  getSejourFromId(@QueryParam("numsej") int numsej) throws ParseException {
+		EntityManager em=HibUtil.getEntityManager();
+		em.getTransaction().begin();	
+		try{
+		Sejour sej =  em.find(Sejour.class,numsej);
+		Hibernate.initialize(sej);
+	   SejourPrix sejPs;
+		double prixSej,prixActs;
+		Sejour s= sej;
+			//Suppression des références qui ne nous intéressent pasd
+			em.detach(s);
+			//Calcul des prix
+			prixSej=s.generatePrice();
+			prixActs=Sejour.getActivitesPrix(s.getNumSej(),em).getPrixTotal();
+			s.setActivites(null);
+			s.getEmplacement().setSejours(null);
+			s.getEmplacement().getTypeEmplacement().setEmplacements(null);
+			s.getClient().setSejours(null);
+			sejPs=new SejourPrix(s,prixSej,prixActs);
+			
+		GenericEntity<SejourPrix> entity = new GenericEntity<SejourPrix>(sejPs){};
+		JResponse r= JResponse.ok(entity).build();
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return r;	
+		}
+		catch(Exception e){
+			//em.getTransaction().commit();
+			HibUtil.closeEntityManager();
+			return null;
+		}
+		
+		
+	}
 
+
+
+
+	
+	
 	@GET
 	@Path("/getsejours")
 	@Produces("application/json")

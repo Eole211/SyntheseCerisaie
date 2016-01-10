@@ -1,4 +1,10 @@
-﻿/sejour/getsejour : 
+﻿/sejour/getsejourfromid
+	Paramète : numSej en GET
+	Retourne le séjour avec son prix
+	exemple :
+	{"sejour":{"client":{"adrRueCli":"4 rue des pivoines","cpCli":"69007","nomCli":"Piaf","numCli":"5","numPieceCli":"347235684","pieceCli":"PC","villeCli":"Lyon"},"dateFinSej":"2012-07-25T00:00:00+02:00","datedebSej":"2012-07-08T00:00:00+02:00","emplacement":{"nbPersMaxEmpl":"12","numEmpl":"5","surfaceEmpl":"8.0","typeEmplacement":{"codeTypeE":"2","libtypepl":"CARAVANE","tariftypepl":"29.0"}},"nbPersonnes":"8","numSej":"5"},"prixSejour":"493.0","prixActivites":"16.0","prixTotal":"0.0"}
+
+/sejour/getsejour : 
 	Paramètre : numcli en GET
 	Retourne les séjours du clients et leurs prix
 	structure : 
