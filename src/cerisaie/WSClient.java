@@ -31,42 +31,38 @@ public class WSClient {
 
 	
 	
-	
-	
-	@POST
-	@Path("/getclientsOld")
-	@Produces("text/plain")
+
+
+	@GET
+	@Path("/getclient")
+	@Produces("application/json; charset=utf-8")
 	// http://localhost:8080/ProjetRestFull/eources/getjson
-	public String  getEtudiantToJSON() throws ParseException {
+	public JResponse  getEtudiant(@QueryParam("numcli") int numCli) throws ParseException {
+	try{
 		EntityManager em=HibUtil.getEntityManager();
 		em.getTransaction().begin();	
-		List clis =  em.createQuery("from Client").getResultList();
+		Client c=  em.find(Client.class, numCli);
+		Hibernate.initialize(c);
 		
-		try {	
-				JSONObject root=new JSONObject();
-				JSONArray ja= new JSONArray();
-			for(Object o :clis){
-				Client c= (Client)o;
-					JSONObject jo = new JSONObject();
-					jo.put("numCli", c.getNumCli());		
-					jo.put("nomCli", c.getNomCli());
-					jo.put("adrRueCli", c.getAdrRueCli());
-					ja.put(jo);					
-			}
-			root.put("clients",ja);
-			return root.toString();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		finally{
-			em.getTransaction().commit();	
-			HibUtil.closeEntityManager();
-		}
+			//On met le séjour à null, sinon il y a des références circulaires.
+			em.detach(c);
+			c.setSejours(null);
+				
+		GenericEntity<Client> entity = new GenericEntity<Client>(c) {};
+		JResponse r= JResponse.ok(entity).build();
+		em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return r;	
+	}
+	catch(Exception e){
+		//em.getTransaction().commit();
+		HibUtil.closeEntityManager();
+		return null;
+	}
+		
 	}
 	
-	
+		
 
 
 	@GET

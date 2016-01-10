@@ -1,4 +1,11 @@
-﻿/client/getclients
+﻿/client/getclient
+	Paramètre: numcli en GET
+	retourne le client
+	exemple :
+	{"adrRueCli":"3 rue des glaieuls","cpCli":"69002","nomCli":"Rossignol","numCli":"3","numPieceCli":"23556645","pieceCli":"CI","villeCli":"Lyon"}
+
+
+/client/getclients
 	Paramètres : Aucun
 	Retourne tout les clients
 	Sructure : 
