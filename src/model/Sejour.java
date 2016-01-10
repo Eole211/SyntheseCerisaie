@@ -131,7 +131,7 @@ public class Sejour implements Serializable {
 		if(dayEnd<dayBeg){
 			dayEnd+=cal.getActualMaximum(Calendar.DAY_OF_YEAR);
 		}
-		return (dayEnd-dayBeg)*s.getEmplacement().getTypeEmplacement().getTariftypepl();
+		return (dayEnd-dayBeg)*s.getNbPersonnes()*s.getEmplacement().getTypeEmplacement().getTariftypepl();
 	}
 	
 
