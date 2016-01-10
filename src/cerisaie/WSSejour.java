@@ -146,7 +146,8 @@ public class WSSejour {
 	public String createSejour(SejourJson sejParam){
 		EntityManager em=HibUtil.getEntityManager();
 		em.getTransaction().begin();	
-		em.persist(sejParam.toSejour(em));
+		Sejour s=sejParam.toSejour(em);
+		em.persist(s);
 		em.getTransaction().commit();
 		HibUtil.closeEntityManager();
 		return "ok";		
